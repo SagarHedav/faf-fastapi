@@ -22,7 +22,10 @@ async def get_api_key(api_key_header: str = Security(api_key_header)):
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:5001",  # Local backend
+        "https://faf-back.onrender.com",  # Production backend
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
