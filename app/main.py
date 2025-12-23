@@ -36,17 +36,9 @@ class RebuildResponse(BaseModel):
     success: bool
     message: str
 
-# Startup event: Load FAISS index
-@app.on_event("startup")
-async def startup_event():
-    """Load FAISS index on startup."""
-    manager = get_faiss_manager()
-    success, msg = manager.load_from_disk()
-    if not success:
-        print(f"FAISS index not loaded: {msg}")
-        print("Will rebuild on first search or manual rebuild")
-    else:
-        print(f"FAISS index loaded successfully: {msg}")
+# Startup event removed - FAISS index will load on first use
+# This prevents Railway deployment from hanging on startup
+# The index will be built/loaded when first needed
 
 @app.get("/")
 def home():
