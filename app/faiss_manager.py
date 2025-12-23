@@ -21,7 +21,7 @@ class FaissManager:
         self.index = faiss.IndexFlatIP(self.dimension)  # Inner Product for cosine similarity
         self.id_map = []
         self.conn = None
-        self._connect_db()
+        # DON'T connect on init - only connect when needed
 
     def _connect_db(self):
         try:
@@ -33,7 +33,7 @@ class FaissManager:
 
     def _ensure_connection(self):
         if self.conn is None or self.conn.closed:
-            print("Reconnecting to DB...")
+            print("Connecting to DB...")
             self._connect_db()
 
     def _fetch_embeddings(self):
